@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="header" class="header">
+    <h1><span th:text="${#messages.msg('app.name')}"></span></h1>
+    <nav class="navbar">
+            <a class="nav-item nav-link" th:href="@{/user/cadastro}"><span th:text="${#messages.msg('user.menu.cadastro')}"></span></a>
+            <a class="nav-item nav-link" th:href="@{/user/lista}"><span th:text="${#messages.msg('user.menu.lista')}"></span></a>
+            <a class="nav-item nav-link" th:href="@{/shelter/cadastro}"><span th:text="${#messages.msg('shelter.menu.cadastro')}"></span></a>
+            <a class="nav-item nav-link" th:href="@{/shelter/lista}"><span th:text="${#messages.msg('shelter.menu.lista')}"></span></a>
+            <a class="nav-item nav-link" href="?lang=pt_BR">BR</a>
+            <a class="nav-item nav-link" href="?lang=en">EN</a>
+    </nav>
+</div>
+</body>
+</html>
