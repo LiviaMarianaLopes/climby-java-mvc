@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de usuario</title>
+    <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container mt-4">
+    <h2  class="mb-4 text-center"><span th:text="${#messages.msg('shelter.cadastro.titulo')}"></span></h2>
+
+    <form method="post" th:action="@{cadastrar}" th:object="${shelterRequest}" class="row g-3">
+        <div class="col-md-6">
+            <label for="name" class="form-label"><span th:text="${#messages.msg('shelter.attr.name')}"></span>:</label> <input type="text" id="name" class="form-control" th:field="*{name}" required>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="email" class="form-label"><span th:text="${#messages.msg('shelter.attr.email')}"></span>:</label> <input type="text" id="email" class="form-control" th:field="*{email}" required>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="phone" class="form-label"><span th:text="${#messages.msg('shelter.attr.phone')}"></span>:</label> <input type="text" id="phone" class="form-control" th:field="*{phone}" required>
+            <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="country" class="form-label"><span th:text="${#messages.msg('shelter.attr.country')}"></span>:</label> <input type="text" id="country" class="form-control" th:field="*{country}" required>
+            <p th:if="${#fields.hasErrors('country')}" th:errors="*{country}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="city" class="form-label"><span th:text="${#messages.msg('shelter.attr.city')}"></span>:</label> <input type="text" id="city" class="form-control" th:field="*{city}" required>
+            <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="district" class="form-label"><span th:text="${#messages.msg('shelter.attr.district')}"></span>:</label> <input type="text" id="district" class="form-control" th:field="*{district}" required>
+            <p th:if="${#fields.hasErrors('district')}" th:errors="*{district}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="adress" class="form-label"><span th:text="${#messages.msg('shelter.attr.adress')}"></span>:</label> <input type="text" id="adress" class="form-control" th:field="*{adress}" required>
+            <p th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="adressNumber" class="form-label"><span th:text="${#messages.msg('shelter.attr.adressNumber')}"></span>:</label> <input type="text" id="adressNumber" class="form-control" th:field="*{adressNumber}" required>
+            <p th:if="${#fields.hasErrors('adressNumber')}" th:errors="*{adressNumber}" th:errorclass="error"></p>
+        </div>
+        <div class="col-md-6">
+            <label for="cep" class="form-label"><span th:text="${#messages.msg('shelter.attr.cep')}"></span>:</label> <input type="text" id="cep" class="form-control" th:field="*{cep}" required>
+            <p th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}" th:errorclass="error"></p>
+        </div>
+
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-primary"><span th:text="${#messages.msg('cadastro.cadastro')}"></span></button>
+        </div>
+    </form>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
