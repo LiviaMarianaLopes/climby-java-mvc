@@ -36,8 +36,13 @@ public class ShelterService {
         Shelter shelter = new Shelter();
         shelter.setName(shelterRequest.getName());
         shelter.setEmail(shelterRequest.getEmail());
+        shelter.setPhone(shelterRequest.getPhone());
         shelter.setCountry(shelterRequest.getCountry());
         shelter.setCity(shelterRequest.getCity());
+        shelter.setAdress(shelterRequest.getAdress());
+        shelter.setAdressNumber(shelterRequest.getAdressNumber());
+        shelter.setCep(shelterRequest.getCep());
+        shelter.setDistrict(shelterRequest.getDistrict());
         return shelter;
     }
 

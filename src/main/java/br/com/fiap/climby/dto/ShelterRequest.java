@@ -31,7 +31,7 @@ public class ShelterRequest {
 
     @NotBlank(message = "{cep.not.blank}")
     @Pattern(regexp = "\\d{8}", message = "{cep.valid}")
-    private int cep;
+    private String cep;
 
     @NotBlank(message = "{district.not.blank}")
     private String district;
