@@ -25,44 +25,48 @@ public class UserController {
     }
 
     @PostMapping("/cadastrar")
-    public String cadastrarUser(@Valid @ModelAttribute UserRequest userRequest, BindingResult result, Model model) {
+    public String cadastrarUser(@Valid @ModelAttribute("userRequest") UserRequest userRequest, BindingResult result, Model model) {
         if(result.hasErrors()) {
             return "userRegister";
         }
         userService.salvarUser(userRequest);
-        return listarUsers(model);
+        return "redirect:/user/lista";
     }
 
     @GetMapping("/lista")
     public String listarUsers(Model model){
         List<User> users = userService.buscarUsers();
         model.addAttribute("listaUsers", users);
-        return"userList";
+        return "userList";
     }
 
     @GetMapping("/edicao/{id}")
     public String userEdicao(@PathVariable Long id, Model model){
-        User user = userService.buscarUser(id);
-        if (user == null) {
-            return listarUsers(model);
+        User userEntity = userService.buscarUser(id);
+        if (userEntity == null) {
+            return "redirect:/user/lista";
         }
         model.addAttribute("idUser", id);
-        model.addAttribute("user", userService.userToRequest(user));
+        model.addAttribute("user", userService.userToRequest(userEntity));
         return "userEdit";
     }
 
     @PostMapping("/editar/{id}")
-    public String editarUser(@PathVariable Long id, @Valid @ModelAttribute UserRequest userRequest, BindingResult result, Model model){
+    public String editarUser(@PathVariable Long id,
+                             @Valid @ModelAttribute("user") UserRequest userRequest,
+                             BindingResult result,
+                             Model model){
         if(result.hasErrors()) {
-            return "user/edicao/"+id;
+            model.addAttribute("idUser", id);
+            return "userEdit";
         }
         userService.atualizarUser(id, userRequest);
-        return listarUsers(model);
+        return "redirect:/user/lista";
     }
 
     @GetMapping("/deletar/{id}")
     public String deletarUser(@PathVariable Long id, Model model){
         userService.deletarUser(id);
-        return listarUsers(model);
+        return "redirect:/user/lista";
     }
 }

@@ -25,44 +25,48 @@ public class ShelterController {
     }
 
     @PostMapping("/cadastrar")
-    public String cadastrarShelter(@Valid @ModelAttribute ShelterRequest shelterRequest, BindingResult result, Model model) {
+    public String cadastrarShelter(@Valid @ModelAttribute("shelterRequest") ShelterRequest shelterRequest, BindingResult result, Model model) {
         if(result.hasErrors()) {
             return "shelterRegister";
         }
         shelterService.salvarShelter(shelterRequest);
-        return listarShelters(model);
+        return "redirect:/shelter/lista";
     }
 
     @GetMapping("/lista")
     public String listarShelters(Model model){
         List<Shelter> shelters = shelterService.buscarShelters();
         model.addAttribute("listaShelters", shelters);
-        return"shelterList";
+        return "shelterList";
     }
 
     @GetMapping("/edicao/{id}")
     public String shelterEdicao(@PathVariable Long id, Model model){
-        Shelter shelter = shelterService.buscarShelter(id);
-        if (shelter == null) {
-            return listarShelters(model);
+        Shelter shelterEntity = shelterService.buscarShelter(id);
+        if (shelterEntity == null) {
+            return "redirect:/shelter/lista";
         }
         model.addAttribute("idShelter", id);
-        model.addAttribute("shelter", shelterService.shelterToRequest(shelter));
+        model.addAttribute("shelterRequest", shelterService.shelterToRequest(shelterEntity));
         return "shelterEdit";
     }
 
     @PostMapping("/editar/{id}")
-    public String editarShelter(@PathVariable Long id, @Valid @ModelAttribute ShelterRequest shelterRequest, BindingResult result, Model model){
+    public String editarShelter(@PathVariable Long id,
+                                @Valid @ModelAttribute("shelterRequest") ShelterRequest shelterRequest,
+                                BindingResult result,
+                                Model model){
         if(result.hasErrors()) {
-            return "shelter/edicao/"+id;
+            model.addAttribute("idShelter", id);
+            return "shelterEdit";
         }
         shelterService.atualizarShelter(id, shelterRequest);
-        return listarShelters(model);
+        return "redirect:/shelter/lista";
     }
 
     @GetMapping("/deletar/{id}")
     public String deletarShelter(@PathVariable Long id, Model model){
         shelterService.deletarShelter(id);
-        return listarShelters(model);
+        return "redirect:/shelter/lista";
     }
 }
