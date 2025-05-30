@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{ai.chat.title}">Climby AI Chat</title> <link th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}" rel="stylesheet" />
+  <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container mt-4">
+  <h2 th:text="#{ai.chat.mainHeading}">Converse com o Assistente Climby</h2> <form method="post" th:action="@{/ai/ask}">
+  <div class="mb-3">
+    <label for="question" class="form-label" th:text="#{ai.chat.questionLabel}">Sua pergunta:</label> <input type="text" id="question" name="question" class="form-control" required>
+  </div>
+  <button type="submit" class="btn btn-primary" th:text="#{ai.chat.askButton}">Perguntar</button> </form>
+
+  <div th:if="${question}" class="mt-4">
+    <h4 th:text="#{ai.chat.userQuestionHeading}">Sua Pergunta:</h4> <p th:text="${question}"></p>
+    <h4 th:text="#{ai.chat.assistantAnswerHeading}">Resposta do Assistente:</h4> <p th:text="${answer}"></p>
+  </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script th:src="@{/webjars/bootstrap/5.3.3/js/bootstrap.bundle.min.js}" defer></script>
+</body>
+</html>
