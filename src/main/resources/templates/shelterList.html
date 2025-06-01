@@ -44,7 +44,7 @@
             <strong><span th:text="${#messages.msg('shelter.attr.district')}"></span>:</strong> <span th:text="${shelter.district}"></span><br>
             <strong><span th:text="${#messages.msg('shelter.attr.adress')}"></span>:</strong> <span th:text="${shelter.adress}"></span><br>
             <strong><span th:text="${#messages.msg('shelter.attr.adressNumber')}"></span>:</strong> <span th:text="${shelter.adressNumber}"></span><br>
-            <strong><span th:text="${#messages.msg('shelter.attr.cep')}"></span>:</strong> <span th:text="${shelter.cep}"></span><br>
+            <strong><span th:text="${#messages.msg('shelter.attr.zip')}"></span>:</strong> <span th:text="${shelter.zip}"></span><br>
             <a th:href="@{/shelter/edicao/{id}(id = ${shelter.id})}"><span th:text="${#messages.msg('lista.modal.action.editar')}"></span></a>
             <span> | </span>
             <a th:href="@{/shelter/deletar/{id}(id = ${shelter.id})}" ><span th:text="${#messages.msg('lista.modal.action.deletar')}"></span></a>

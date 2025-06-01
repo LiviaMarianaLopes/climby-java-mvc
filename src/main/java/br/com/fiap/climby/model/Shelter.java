@@ -18,7 +18,7 @@ public class Shelter {
     private String adress;
     @Column(name = "ADRESS_NUMBER")
     private int adressNumber;
-    private String cep;
+    private String zip;
     private String district;
     @Column(name = "IS_FULL")
     private boolean isFull;

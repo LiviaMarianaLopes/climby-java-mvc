@@ -59,7 +59,7 @@ public class ClimbyApplicationTests {
 		shelterParaTestes.setCity("Cidade Teste");
 		shelterParaTestes.setAdress("Rua Teste, 100");
 		shelterParaTestes.setAdressNumber(100);
-		shelterParaTestes.setCep("01001000");
+		shelterParaTestes.setZip("01001000");
 		shelterParaTestes.setDistrict("Bairro Teste");
 		shelterParaTestes.setFull(false);
 		shelterParaTestes = shelterRepository.save(shelterParaTestes);
@@ -209,7 +209,7 @@ public class ClimbyApplicationTests {
 						.param("city", "Cidade Teste Editada")
 						.param("adress", shelterParaTestes.getAdress())
 						.param("adressNumber", String.valueOf(shelterParaTestes.getAdressNumber()))
-						.param("cep", shelterParaTestes.getCep())
+						.param("cep", shelterParaTestes.getZip())
 						.param("district", shelterParaTestes.getDistrict())
 						.with(csrf())
 				)

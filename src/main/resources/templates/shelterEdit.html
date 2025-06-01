@@ -46,8 +46,8 @@
             <p th:if="${#fields.hasErrors('adressNumber')}" th:errors="*{adressNumber}" th:errorclass="error"></p>
         </div>
         <div class="col-md-6">
-            <label for="cep" class="form-label"><span th:text="${#messages.msg('shelter.attr.cep')}"></span>:</label> <input type="text" id="cep" class="form-control" th:field="*{cep}">
-            <p th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}" th:errorclass="error"></p>
+            <label for="zip" class="form-label"><span th:text="${#messages.msg('shelter.attr.zip')}"></span>:</label> <input type="text" id="zip" class="form-control" th:field="*{zip}">
+            <p th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}" th:errorclass="error"></p>
         </div>
 
         <div class="col-12 text-center">

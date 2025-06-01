@@ -39,7 +39,7 @@ public class ShelterServiceTest {
         shelterRequest.setCity("Rio de Janeiro");
         shelterRequest.setAdress("Rua da Paz, 123");
         shelterRequest.setAdressNumber(123);
-        shelterRequest.setCep("20000000");
+        shelterRequest.setZip("20000000");
         shelterRequest.setDistrict("Centro");
         shelterRequest.setFull(false);
 
@@ -47,7 +47,7 @@ public class ShelterServiceTest {
         abrigoSalvo.setId(1L);
         abrigoSalvo.setName(shelterRequest.getName());
         abrigoSalvo.setEmail(shelterRequest.getEmail());
-        abrigoSalvo.setCep(shelterRequest.getCep());
+        abrigoSalvo.setZip(shelterRequest.getZip());
 
 
         when(shelterRepository.save(any(Shelter.class))).thenReturn(abrigoSalvo);
@@ -59,7 +59,7 @@ public class ShelterServiceTest {
         assertNotNull(resultado);
         assertEquals(1L, resultado.getId());
         assertEquals("Abrigo Esperança", resultado.getName());
-        assertEquals("20000000", resultado.getCep());
+        assertEquals("20000000", resultado.getZip());
         verify(shelterRepository, times(1)).save(any(Shelter.class));
         verify(rabbitTemplate, times(1)).convertAndSend(anyString(), anyString(), eq(1L));
     }
@@ -70,7 +70,7 @@ public class ShelterServiceTest {
         Shelter abrigoMock = new Shelter();
         abrigoMock.setId(shelterId);
         abrigoMock.setName("Abrigo Encontrado");
-        abrigoMock.setCep("10000001");
+        abrigoMock.setZip("10000001");
 
         when(shelterRepository.findById(shelterId)).thenReturn(Optional.of(abrigoMock));
 
@@ -79,7 +79,7 @@ public class ShelterServiceTest {
         assertNotNull(resultado);
         assertEquals(shelterId, resultado.getId());
         assertEquals("Abrigo Encontrado", resultado.getName());
-        assertEquals("10000001", resultado.getCep());
+        assertEquals("10000001", resultado.getZip());
         verify(shelterRepository, times(1)).findById(shelterId);
     }
 
@@ -131,13 +131,13 @@ public class ShelterServiceTest {
         ShelterRequest shelterRequestAtualizado = new ShelterRequest();
         shelterRequestAtualizado.setName("Abrigo Renovado");
         shelterRequestAtualizado.setEmail("renovado@example.com");
-        shelterRequestAtualizado.setCep("01001000");
+        shelterRequestAtualizado.setZip("01001000");
 
 
         Shelter abrigoExistente = new Shelter();
         abrigoExistente.setId(shelterId);
         abrigoExistente.setName("Abrigo Antigo");
-        abrigoExistente.setCep("00000000");
+        abrigoExistente.setZip("00000000");
 
         when(shelterRepository.findById(shelterId)).thenReturn(Optional.of(abrigoExistente));
         when(shelterRepository.save(any(Shelter.class))).thenAnswer(invocation -> invocation.getArgument(0));
@@ -148,7 +148,7 @@ public class ShelterServiceTest {
         verify(shelterRepository, times(1)).save(argThat(savedShelter ->
                 savedShelter.getId().equals(shelterId) &&
                         savedShelter.getName().equals("Abrigo Renovado") &&
-                        savedShelter.getCep().equals("01001000")
+                        savedShelter.getZip().equals("01001000")
         ));
     }
 
@@ -177,7 +177,7 @@ public class ShelterServiceTest {
         shelter.setCity("Cidade Abrigo");
         shelter.setAdress("Endereço Abrigo");
         shelter.setAdressNumber(456);
-        shelter.setCep("05858000");
+        shelter.setZip("05858000");
         shelter.setDistrict("Bairro Abrigo");
         shelter.setFull(true);
 
@@ -191,7 +191,7 @@ public class ShelterServiceTest {
         assertEquals(shelter.getCity(), shelterRequest.getCity());
         assertEquals(shelter.getAdress(), shelterRequest.getAdress());
         assertEquals(shelter.getAdressNumber(), shelterRequest.getAdressNumber());
-        assertEquals(shelter.getCep(), shelterRequest.getCep());
+        assertEquals(shelter.getZip(), shelterRequest.getZip());
         assertEquals(shelter.getDistrict(), shelterRequest.getDistrict());
         assertEquals(shelter.isFull(), shelterRequest.isFull());
     }
