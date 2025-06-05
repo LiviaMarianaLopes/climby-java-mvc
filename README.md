@@ -44,6 +44,103 @@ Este projeto refere-se à entrega da **Aplicação Web Administrativa (Java Spri
 
 ---
 
+## ☁️ Implantação em Nuvem com ACR/ACI 
+Esta seção descreve o processo de implantação da API Odontoprev na nuvem utilizando Azure Container Registry (ACR) e Azure Container Instances (ACI), além da configuração do banco de dados no SQL Azure.
+
+### ✅ Passo a passo para execução da aplicação em nuvem
+### 1️⃣ Clone o repositório
+
+```sh
+git clone https://github.com/LiviaMarianaLopes/climby-java-mvc.git
+
+cd climby-java-mvc
+
+```
+### 2️⃣ Criação do Banco de Dados no Azure
+No portal da Azure, crie um Azure SQL Database.
+
+### 3️⃣ Configuração do Banco de Dados na Aplicação
+
+No arquivo application.properties, comente as configurações existentes do banco de dados e adicione as linhas abaixo (substitua as credenciais pelas suas):
+```properties
+# Desativação do RabbitMQ
+spring.rabbitmq.listener.simple.auto-startup=false
+
+#Configuração do banco de dados
+spring.datasource.url=jdbc:sqlserver://<SEU_HOST>:1433;database=<SEU_BANCO>;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30;
+spring.datasource.username=<SEU_USUARIO>
+spring.datasource.password=<SUA_SENHA>
+spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+# Configurações do Hibernate
+spring.jpa.database-platform=org.hibernate.dialect.SQLServerDialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
+### 4️⃣ Deploy da Aplicação no Azure
+
+Login na Azure e Criação do Grupo de Recursos
+
+```sh
+az login
+```
+Depois, crie um Grupo de Recursos:
+
+```sh
+az group create --name rg-climby --location eastus
+```
+Crie o Azure Container Registry (ACR):
+
+```sh
+
+az acr create --resource-group rg-climby --name climbyjavarm552558 --sku Basic
+```
+Autentique-se no ACR:
+
+```sh
+
+az acr login --name climbyjavarm552558
+```
+Construa a imagem Docker:
+
+```sh
+docker build -t climby-java .
+```
+Marque e envie a imagem para o ACR:
+
+```sh
+docker tag climby-java climbyjavarm552558.azurecr.io/climby-java:v1
+docker push climbyjavarm552558.azurecr.io/climby-java:v1
+```
+Crie o Azure Container Instance (ACI) para rodar a aplicação na nuvem:
+
+```sh
+
+az container create --resource-group rg-climby --name climbyjavarm552558 \
+  --image climbyjavarm552558.azurecr.io/climby-java:v1 \
+  --cpu 1 --memory 1 \
+  --registry-login-server climbyjavarm552558.azurecr.io \
+  --registry-username climbyjavarm552558 \
+  --registry-password <SUA_SENHA> \
+  --ip-address Public --dns-name-label climbyjavarm552558 \
+  --ports 3000 80 8080 --os-type Linux
+```
+Após a implantação, obtenha o endereço IP da API rodando o comando:
+
+```sh
+az container show --resource-group rg-climby --name climbyjavarm552558 --query ipAddress.ip --output tsv
+```
+A aplicação estará disponível em:
+
+```cpp
+http://<endereço-ip>:8080
+```
+### 5️⃣ Vídeo demonstrando o deploy até a persistência de dados em Nuvem 
+🎥 [Devops-gs]()
+
+---
+
 ## 🛠️ Tecnologias Utilizadas (Aplicação Java Admin Web)
 
 * **Backend:** Java 21, Spring Boot 3.5.0, Spring MVC, Spring Data JPA, Spring Security (OAuth2), Spring AMQP (RabbitMQ), Spring AI.
