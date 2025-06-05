@@ -21,4 +21,7 @@ public class UserRequest {
     @NotBlank(message = "{city.not.blank}")
     private String city;
 
+    @NotBlank(message = "{password.not.blank}")
+    private String password;
+
 }

@@ -10,10 +10,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "FIREBASE_UID")
-    private String firebaseUID;
     private String name;
     private String email;
     private String country;
     private String city;
+    private String password;
 }

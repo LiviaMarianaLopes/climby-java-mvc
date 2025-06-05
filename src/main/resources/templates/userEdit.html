@@ -29,6 +29,10 @@
             <label for="city" class="form-label"><span th:text="${#messages.msg('user.attr.city')}"></span>:</label> <input type="text" id="city" class="form-control" th:field="*{city}">
             <p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" th:errorclass="error"></p>
         </div>
+        <div class="col-md-6">
+            <label for="password" class="form-label"><span th:text="${#messages.msg('user.attr.password')}"></span>:</label> <input type="password" id="password" class="form-control" th:field="*{password}">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" th:errorclass="error"></p>
+        </div>
         <div class="col-12 text-center">
             <button type="submit" class="btn btn-primary"><span th:text="${#messages.msg('editar.editar')}"></span></button>
         </div>

@@ -38,6 +38,7 @@ public class UserService {
         user.setEmail(userRequest.getEmail());
         user.setCountry(userRequest.getCountry());
         user.setCity(userRequest.getCity());
+        user.setPassword(userRequest.getPassword());
         return user;
     }
 
