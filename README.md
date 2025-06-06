@@ -59,9 +59,24 @@ cd climby-java-mvc
 ### 2️⃣ Criação do Banco de Dados no Azure
 No portal da Azure, crie um Azure SQL Database.
 
-### 3️⃣ Configuração do Banco de Dados na Aplicação
+### 3️⃣ Ajustar Dependências para o Deploy
+Para preparar a aplicação para o deploy, é necessário desativar as dependências do OAuth2.
 
-No arquivo application.properties, comente as configurações existentes do banco de dados e adicione as linhas abaixo (substitua as credenciais pelas suas):
+Abra o arquivo build.gradle.
+
+Localize o seguinte bloco e, conforme a instrução, comente as duas linhas implementation adicionando // no início de cada uma.
+
+
+```Groovy
+
+// comente essas duas linhas caso for fazer o deploy da aplicação
+implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+implementation 'org.springframework.security:spring-security-oauth2-jose'
+```
+
+### 4️⃣ Configuração do Banco de Dados na Aplicação
+
+No arquivo application.properties, comente as configurações existentes do banco de dados (comente também as linhas do github login e do goolge login) e adicione as linhas abaixo (substitua as credenciais pelas suas):
 ```properties
 # Desativação do RabbitMQ
 spring.rabbitmq.listener.simple.auto-startup=false
@@ -78,7 +93,7 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
-### 4️⃣ Deploy da Aplicação no Azure
+### 5️⃣ Deploy da Aplicação no Azure
 
 Login na Azure e Criação do Grupo de Recursos
 
@@ -136,8 +151,8 @@ A aplicação estará disponível em:
 ```cpp
 http://<endereço-ip>:8080
 ```
-### 5️⃣ Vídeo demonstrando o deploy até a persistência de dados em Nuvem 
-🎥 [Devops-gs]()
+### 6️⃣ Vídeo demonstrando o deploy até a persistência de dados em Nuvem 
+🎥 [Devops-gs](https://www.youtube.com/watch?v=g8D0gsSWPLg)
 
 ---
 
