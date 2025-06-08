@@ -202,9 +202,9 @@ http://<endereço-ip>:8080
 
 ---
 
-## 🔗 Links dos vídeos
+## 🔗 Links do vídeo
 
 * **Vídeo Demonstração:** 
-* **Vídeo Pitch:**
+🎥 [video-demonstrativo](https://www.youtube.com/watch?v=xU2MJIOaHWA)
 
 ---
